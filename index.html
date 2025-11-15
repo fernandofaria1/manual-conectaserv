@@ -1,248 +1,111 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <title>Manual Visual - ConectaServ</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    :root {
-      --teal: #006d75;
-      --teal-light: #2ca6a4;
-      --bg-light: #f5f5f5;
-      --text-dark: #2d2d2d;
-      --text-muted: #6e6e6e;
-      --card-bg: #ffffff;
-      --border: #e0e0e0;
-      --accent: #facc15;
-    }
+  <meta charset="UTF-8">
+  <title>Manual Visual – ConectaServ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <style>
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
       scroll-behavior: smooth;
+      font-family: "Poppins", sans-serif;
     }
 
     body {
-      margin: 0;
-      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-      background: var(--bg-light);
-      color: var(--text-dark);
-      line-height: 1.6;
+      background: #f3f7f4;
+      display: flex;
     }
 
-    header {
-  background: var(--teal);
-  color: #fff;
-  padding: 16px 32px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative; /* <-- troca principal */
-  z-index: 20;
-}
-
-    header h1 {
-      font-size: 20px;
-      margin: 0;
-    }
-
-    header nav a {
-      color: #e8ffff;
-      text-decoration: none;
-      margin-left: 16px;
-      font-size: 14px;
-    }
-
-    header nav a:hover {
-      text-decoration: underline;
-    }
-
-    .wrapper {
-      max-width: 1120px;
-      margin: 24px auto 40px auto;
-      padding: 0 16px 40px;
-      background: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.04);
-    }
-
-    .top-title {
-      padding: 32px 24px 16px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .top-title h2 {
-      margin: 0 0 8px;
-      font-size: 26px;
-      color: var(--teal);
-    }
-
-    .top-title p {
-      margin: 4px 0;
-      color: var(--text-muted);
-      font-size: 14px;
-    }
-
-    .grid-info {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
-      margin-top: 16px;
-      font-size: 14px;
-    }
-
-    .tag {
-      display: inline-block;
-      background: rgba(0, 109, 117, 0.07);
-      color: var(--teal);
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      margin-top: 8px;
-    }
-
-    .sumario {
-      padding: 16px 24px 8px;
-      border-bottom: 1px solid var(--border);
-      background: #fafafa;
-    }
-
-    .sumario h3 {
-      margin-top: 0;
-      font-size: 16px;
-    }
-
-    .sumario a {
-      display: inline-block;
-      margin: 4px 8px 4px 0;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      font-size: 12px;
-      text-decoration: none;
-      color: var(--text-muted);
-      background: #fff;
-    }
-
-    .sumario a:hover {
-      border-color: var(--teal);
-      color: var(--teal);
-    }
-
-    section {
+    /* MENU LATERAL */
+    .sidebar {
+      width: 260px;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
       padding: 24px;
-      border-bottom: 1px solid var(--border);
+      background: white;
+      border-right: 1px solid #e4e4e4;
+      overflow-y: auto;
     }
 
-    section:last-of-type {
-      border-bottom: none;
+    .sidebar h2 {
+      font-size: 20px;
+      color: #006d75;
+      margin-bottom: 16px;
     }
 
-    section h2 {
-      margin-top: 0;
-      font-size: 22px;
-      color: var(--teal);
+    .sidebar h3 {
+      font-size: 12px;
+      color: #999;
+      margin-bottom: 8px;
+      text-transform: uppercase;
     }
 
-    section h3 {
-      margin-bottom: 6px;
-      margin-top: 16px;
-      font-size: 17px;
-      color: var(--text-dark);
-    }
-
-    p {
-      font-size: 14px;
-      margin: 4px 0 10px;
-    }
-
-    ul {
-      font-size: 14px;
-      padding-left: 18px;
-      margin: 4px 0 10px;
-    }
-
-    .palette {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 16px;
-      margin-top: 12px;
-    }
-
-    .color-card {
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: #fff;
-    }
-
-    .color-swatch {
-      height: 60px;
-    }
-
-    .color-info {
-      padding: 8px 10px;
-      font-size: 13px;
-    }
-
-    .color-info strong {
+    .sidebar a {
       display: block;
-    }
-
-    .type-sample {
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      padding: 14px 16px;
-      margin-top: 10px;
-      background: #fafafa;
+      padding: 8px 12px;
+      margin-bottom: 4px;
+      border-radius: 6px;
+      color: #333;
+      text-decoration: none;
       font-size: 14px;
     }
 
-    .type-sample h1,
-    .type-sample h2,
-    .type-sample h3 {
-      margin: 4px 0;
-    }
-
-    .applications-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 16px;
-      margin-top: 10px;
-    }
-
-    .card {
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      padding: 12px 14px;
-      font-size: 13px;
-      background: #fafafa;
-    }
-
-    .card h4 {
-      margin: 0 0 6px;
-      color: var(--teal);
-      font-size: 15px;
-    }
-
-    .warning {
-      color: #b91c1c;
+    .sidebar a:hover,
+    .sidebar a.active {
+      background: #d7f5f3;
+      color: #006d75;
       font-weight: 600;
     }
 
+    /* CONTEÚDO */
+    .content {
+      margin-left: 260px;
+      padding: 40px 60px;
+      width: calc(100% - 260px);
+    }
+
+    section {
+      background: white;
+      margin-bottom: 30px;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+    }
+
+    section h2 {
+      color: #006d75;
+      font-size: 26px;
+      margin-bottom: 12px;
+    }
+
+    section p, li {
+      font-size: 15px;
+      color: #444;
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    /* GRID DAS IMAGENS */
     .prints-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
-      margin-top: 10px;
+      gap: 20px;
     }
 
     figure {
-      margin: 0;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      overflow: hidden;
       background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #eee;
     }
 
     figure img {
@@ -251,84 +114,49 @@
     }
 
     figure figcaption {
-      padding: 8px 10px;
-      font-size: 13px;
-      color: var(--text-muted);
+      padding: 10px;
+      font-size: 14px;
+      color: #666;
     }
 
-    footer {
-      text-align: center;
-      font-size: 12px;
-      color: var(--text-muted);
-      padding: 16px;
-    }
-
-    @media (max-width: 600px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-      }
-    }
   </style>
 </head>
-<body>
-  <header>
-    <h1>Manual Visual – ConectaServ</h1>
-    <nav>
-      <a href="#intro">Introdução</a>
-      <a href="#marca">Sobre a Marca</a>
-      <a href="#cores">Cores</a>
-      <a href="#tipografia">Tipografia</a>
-      <a href="#prints">Protótipo</a>
-    </nav>
-  </header>
 
-  <main class="wrapper">
-    <!-- CAPA -->
-    <div class="top-title">
-      <h2>MANUAL OFICIAL – IDENTIDADE VISUAL DO SITE CONECTASERV</h2>
-      <p><strong>Logo Final + Diretrizes Visuais do Projeto Web</strong></p>
+<body>
+
+  <!-- MENU LATERAL -->
+  <aside class="sidebar">
+    <h2>MANUAL VISUAL</h2>
+
+    <h3>Estrutura</h3>
+    <a href="#capa">Capa</a>
+    <a href="#intro">1. Introdução</a>
+    <a href="#marca">2. Sobre a Marca</a>
+    <a href="#motivacoes">3. Motivações</a>
+    <a href="#slogan">4. Slogan</a>
+    <a href="#processo">5. Processo Criativo</a>
+    <a href="#logo">6. Logotipo Final</a>
+    <a href="#variacoes">7. Variações</a>
+    <a href="#cores">8. Paleta de Cores</a>
+    <a href="#tipografia">9. Tipografia</a>
+    <a href="#aplicacoes">10. Aplicações</a>
+    <a href="#proibicoes">11. Proibições</a>
+    <a href="#prints">12. Prints</a>
+    <a href="#creditos">13. Créditos do Grupo</a>
+  </aside>
+
+  <!-- CONTEÚDO -->
+  <main class="content">
+        <!-- CAPA -->
+    <section id="capa">
+      <h2>Manual Oficial – Identidade Visual do ConectaServ</h2>
       <p>"ConectaServ: facilidade pra contratar, visibilidade pra quem sabe fazer."</p>
 
-      <div class="grid-info">
-        <div>
-          <strong>Site:</strong> ConectaServ – Marketplace de Prestadores de Serviços
-        </div>
-        <div>
-          <strong>Desenvolvido por:</strong><br />
-          Fernando Apolinário Faria · Gabriel Ribeiro da Silva ·
-          Marcelo de Almeida Neroni · Matheus Garcia Leite · Thalles Novais
-        </div>
-        <div>
-          <strong>Disciplina:</strong> Design Digital – DSM<br />
-          <strong>Instituição:</strong> Fatec Franca – PI 1º Semestre
-        </div>
-        <div>
-          <strong>Data:</strong> 2025
-        </div>
-      </div>
-
-      <span class="tag">Documento visual – não segue normas ABNT</span>
-    </div>
-
-    <!-- SUMÁRIO -->
-    <div class="sumario">
-      <h3>Sumário Visual</h3>
-      <a href="#intro">1. Introdução</a>
-      <a href="#marca">2. Sobre a Marca</a>
-      <a href="#motivacoes">3. Motivações e Propósito</a>
-      <a href="#slogan">4. Slogan</a>
-      <a href="#processo">5. Processo Criativo</a>
-      <a href="#logo">6. Logotipo Final</a>
-      <a href="#variacoes">7. Variações do Logo</a>
-      <a href="#cores">8. Paleta de Cores</a>
-      <a href="#tipografia">9. Tipografia</a>
-      <a href="#aplicacoes">10. Aplicações da Marca</a>
-      <a href="#proibicoes">11. Proibições de Uso</a>
-      <a href="#prints">12. Protótipo / Prints</a>
-      <a href="#creditos">13. Créditos do Grupo</a>
-    </div>
+      <p><strong>Site:</strong> ConectaServ – Marketplace de Prestadores</p>
+      <p><strong>Disciplina:</strong> Design Digital – DSM</p>
+      <p><strong>Instituição:</strong> Fatec Franca – PI 1º Semestre</p>
+      <p><strong>Ano:</strong> 2025</p>
+    </section>
 
     <!-- 1. INTRODUÇÃO -->
     <section id="intro">
@@ -341,12 +169,7 @@
       <p>
         Aqui estão registradas as diretrizes de uso do logo, paleta de cores,
         tipografia e componentes de interface, garantindo consistência visual em
-        todas as telas do projeto e em futuras expansões do sistema.
-      </p>
-      <p>
-        O objetivo é que qualquer integrante do grupo ou futuro desenvolvedor
-        consiga entender rapidamente a essência visual do ConectaServ e
-        replicá-la sem distorções.
+        todas as telas do projeto.
       </p>
     </section>
 
@@ -354,133 +177,80 @@
     <section id="marca">
       <h2>2. Sobre a Marca</h2>
 
-      <h3>O que é o ConectaServ?</h3>
       <p>
-        O <strong>ConectaServ</strong> é um marketplace de serviços locais. A
-        plataforma permite que clientes encontrem jardineiros, faxineiras,
-        pedreiros, motoristas e outros profissionais de forma rápida, segura e
-        organizada.
+        O <strong>ConectaServ</strong> é um marketplace de serviços locais que
+        facilita a conexão entre clientes e prestadores como jardineiros,
+        pintores, diaristas, eletricistas, pedreiros e outros profissionais.
       </p>
 
       <h3>O que o site oferece?</h3>
       <ul>
-        <li>Busca por profissionais filtrada pela cidade do usuário;</li>
-        <li>Páginas de perfil completas com foto, descrição, avaliação e preço;</li>
-        <li>Sistema de contato direto entre cliente e profissional;</li>
-        <li>Área de cadastro para prestadores criarem e divulgarem seu perfil.</li>
+        <li>Busca por profissionais filtrada pela cidade;</li>
+        <li>Perfis completos com foto, preço e avaliação;</li>
+        <li>Sistema de contato direto;</li>
+        <li>Área para prestadores criarem um perfil profissional.</li>
       </ul>
 
-      <h3>Público-alvo e posicionamento</h3>
+      <h3>Público-alvo</h3>
       <p>
-        O público-alvo são pessoas que precisam contratar serviços para casa ou
-        pequenos negócios e profissionais autônomos que desejam mais visibilidade
-        na região.
-      </p>
-      <p>
-        <strong>Posicionamento:</strong> ser a forma mais simples e confiável de
-        encontrar prestadores de serviço locais com boa reputação.
-      </p>
-
-      <h3>Problema que o ConectaServ resolve</h3>
-      <p>
-        Muitos clientes ainda dependem de “indicação de boca” para contratar
-        serviços, sem referências claras de preço, qualidade e avaliação. O
-        ConectaServ centraliza essas informações e facilita a decisão do usuário.
+        Clientes que buscam confiança e agilidade para contratar serviços,
+        e profissionais autônomos que precisam de visibilidade.
       </p>
     </section>
 
     <!-- 3. MOTIVAÇÕES -->
     <section id="motivacoes">
-      <h2>3. Motivações e Propósito do Site</h2>
+      <h2>3. Motivações e Propósito</h2>
 
-      <h3>Benefício do usuário</h3>
+      <h3>Benefício para o usuário</h3>
       <p>
-        Ajudar o usuário a encontrar rapidamente um profissional confiável,
-        reduzindo o risco de contratar alguém sem referências e otimizando tempo
-        e dinheiro.
+        Encontrar rapidamente um profissional confiável, com avaliações reais e
+        informações organizadas.
       </p>
 
       <h3>Dor atendida</h3>
       <p>
-        Falta de organização e transparência na contratação de serviços locais,
-        dificuldade em comparar profissionais, preços e avaliações em um só
-        lugar.
+        Centralizar informações para evitar depender apenas de "indicação" sem
+        referências confiáveis.
       </p>
 
-      <h3>Diferencial proposto</h3>
+      <h3>Diferencial</h3>
       <p>
-        Interface limpa e objetiva, com foco em:
+        Interface simples, objetiva e pensada para decisão rápida.
       </p>
-      <ul>
-        <li>busca simples por cidade;</li>
-        <li>cards de profissionais com resumo das avaliações;</li>
-        <li>perfis bem estruturados com descrição, fotos e contato direto.</li>
-      </ul>
     </section>
 
     <!-- 4. SLOGAN -->
     <section id="slogan">
       <h2>4. Slogan</h2>
       <p><strong>"ConectaServ: facilidade pra contratar, visibilidade pra quem sabe fazer."</strong></p>
-      <p>
-        O slogan resume os dois lados da plataforma: de um lado o cliente que
-        deseja facilidade para contratar; do outro, o profissional que precisa
-        de visibilidade para ser encontrado.
-      </p>
     </section>
 
     <!-- 5. PROCESSO CRIATIVO -->
     <section id="processo">
       <h2>5. Processo Criativo</h2>
       <p>
-        O processo de construção da identidade visual do ConectaServ foi guiado
-        por três palavras-chave: <strong>conexão</strong>,
-        <strong>confiança</strong> e <strong>profissionalismo</strong>.
+        A identidade visual foi construída com base em três pilares:
+        <strong>Conexão, Confiança e Profissionalismo</strong>.
       </p>
 
-      <h3>Rascunhos e experimentações</h3>
+      <h3>Explorações e testes</h3>
       <p>
-        Foram exploradas formas circulares e setas representando fluxo e
-        conexão, além de diferentes composições com o nome da marca. A equipe
-        testou variações de verde e azul até chegar na combinação atual.
+        O grupo testou formas circulares, ícones de conexão e variações de
+        tipografia até chegar ao visual atual.
       </p>
-
-      <h3>Escolhas finais</h3>
-      <ul>
-        <li>
-          <strong>Forma:</strong> elementos circulares simbolizam o elo entre
-          cliente e profissional;
-        </li>
-        <li>
-          <strong>Paleta:</strong> tons de verde petróleo transmitem confiança,
-          estabilidade e tecnologia acessível;
-        </li>
-        <li>
-          <strong>Tipografia:</strong> fonte moderna e legível, reforçando a
-          ideia de plataforma digital séria e simples de usar.
-        </li>
-      </ul>
     </section>
 
-    <!-- 6. LOGOTIPO FINAL -->
+    <!-- 6. LOGO FINAL -->
     <section id="logo">
       <h2>6. Logotipo Final</h2>
       <p>
-        O logotipo combina ícone circular e o nome <strong>ConectaServ</strong>,
-        destacando a palavra “Conecta” para reforçar a função principal da
-        plataforma: aproximar pessoas.
+        O logotipo usa ícone circular representando conexão entre cliente e
+        profissional, acompanhado do nome da plataforma.
       </p>
 
-      <h3>Especificações</h3>
-      <ul>
-        <li>Versão principal em fundo claro (branco ou cinza muito claro);</li>
-        <li>Uso preferencial em cabeçalhos, rodapés e materiais oficiais;</li>
-        <li>Quando em tamanho reduzido, pode ser usado apenas o ícone.</li>
-      </ul>
-
       <p>
-        <em>(Inserir aqui a imagem do logo final: ex.
-        <code>&lt;img src="assets/logo-conectaserv.png" alt="Logo ConectaServ" /&gt;</code>)</em>
+        <em>Insira aqui o logo oficial se desejar.</em>
       </p>
     </section>
 
@@ -488,203 +258,99 @@
     <section id="variacoes">
       <h2>7. Variações do Logotipo</h2>
 
-      <div class="applications-grid">
-        <div class="card">
-          <h4>Logo Colorido</h4>
-          <p>Versão principal em verde petróleo e cinza, usada na maior parte das telas.</p>
-        </div>
-        <div class="card">
-          <h4>Monocromático</h4>
-          <p>Versão em preto ou branco para fundos complexos ou materiais de baixa resolução.</p>
-        </div>
-        <div class="card">
-          <h4>Negativo</h4>
-          <p>Logo branco aplicado sobre fundo verde petróleo (como no cabeçalho do site).</p>
-        </div>
-        <div class="card">
-          <h4>Ícone Reduzido</h4>
-          <p>Uso do símbolo sem o nome, em favicon, avatar ou versões muito pequenas.</p>
-        </div>
-      </div>
+      <ul>
+        <li>Logo colorido (versão principal);</li>
+        <li>Logo monocromático para fundos complexos;</li>
+        <li>Versão negativa (branco sobre verde petróleo);</li>
+        <li>Ícone reduzido para favicon ou thumbnail.</li>
+      </ul>
     </section>
 
-    <!-- 8. PALETA -->
+    <!-- 8. CORES -->
     <section id="cores">
       <h2>8. Paleta de Cores Oficial</h2>
-      <p>
-        A paleta foi definida para dialogar com seriedade e acessibilidade, sem
-        parecer uma marca engessada. O site usa fundo claro, cards brancos e
-        destaques em verde petróleo.
-      </p>
 
-      <h3>Cores Primárias</h3>
-      <div class="palette">
-        <div class="color-card">
-          <div class="color-swatch" style="background: #006d75"></div>
-          <div class="color-info">
-            <strong>Verde Petróleo</strong>
-            Uso em cabeçalho, botões principais e títulos de destaque.<br />
-            HEX: <code>#006D75</code>
-          </div>
-        </div>
-        <div class="color-card">
-          <div class="color-swatch" style="background: #2ca6a4"></div>
-          <div class="color-info">
-            <strong>Verde Claro</strong>
-            Apoio, ícones e detalhes suaves.<br />
-            HEX: <code>#2CA6A4</code>
-          </div>
-        </div>
-      </div>
-
-      <h3>Cores Neutras</h3>
-      <div class="palette">
-        <div class="color-card">
-          <div class="color-swatch" style="background: #f5f5f5"></div>
-          <div class="color-info">
-            <strong>Cinza Muito Claro</strong>
-            Fundo geral da página.<br />
-            HEX: <code>#F5F5F5</code>
-          </div>
-        </div>
-        <div class="color-card">
-          <div class="color-swatch" style="background: #ffffff"></div>
-          <div class="color-info">
-            <strong>Branco</strong>
-            Cards, seções internas e formulários.<br />
-            HEX: <code>#FFFFFF</code>
-          </div>
-        </div>
-        <div class="color-card">
-          <div class="color-swatch" style="background: #2d2d2d"></div>
-          <div class="color-info">
-            <strong>Cinza Escuro</strong>
-            Textos principais e títulos.<br />
-            HEX: <code>#2D2D2D</code>
-          </div>
-        </div>
-        <div class="color-card">
-          <div class="color-swatch" style="background: #6e6e6e"></div>
-          <div class="color-info">
-            <strong>Cinza Médio</strong>
-            Subtítulos e textos de apoio.<br />
-            HEX: <code>#6E6E6E</code>
-          </div>
-        </div>
-      </div>
+      <ul>
+        <li><strong>#006D75</strong> – Verde Petróleo (cor principal)</li>
+        <li><strong>#2CA6A4</strong> – Verde Claro (destaques e ícones)</li>
+        <li><strong>#F5F5F5</strong> – Cinza Claro (fundo geral)</li>
+        <li><strong>#FFFFFF</strong> – Branco (cards e áreas internas)</li>
+        <li><strong>#2D2D2D</strong> – Cinza Escuro (textos principais)</li>
+      </ul>
     </section>
 
     <!-- 9. TIPOGRAFIA -->
     <section id="tipografia">
       <h2>9. Tipografia</h2>
       <p>
-        Para manter consistência, o ConectaServ utiliza preferencialmente apenas
-        uma família tipográfica em todo o projeto, com variações de peso.
+        A tipografia oficial usa a família <strong>Poppins</strong>,
+        moderna e legível, nas variações Regular, Medium e SemiBold.
       </p>
-
-      <h3>Fonte Principal</h3>
-      <p>
-        <strong>Nome da Fonte:</strong> Poppins (ou Inter, caso não esteja
-        disponível).<br />
-        <strong>Pesos:</strong> Regular, Medium, SemiBold.
-      </p>
-
-      <div class="type-sample">
-        <h1>H1 – Título Principal (32–40px)</h1>
-        <h2>H2 – Seções Importantes (26px)</h2>
-        <h3>H3 – Subtítulos (20–22px)</h3>
-        <p>Texto de corpo padrão – 14 a 16px, com line-height em torno de 1.5.</p>
-        <p><strong>Botões e CTAs</strong> podem usar caixa alta para chamar atenção.</p>
-      </div>
     </section>
 
     <!-- 10. APLICAÇÕES -->
     <section id="aplicacoes">
       <h2>10. Aplicações da Marca</h2>
-      <p>Alguns exemplos de como a identidade visual é aplicada no site:</p>
 
-      <div class="applications-grid">
-        <div class="card">
-          <h4>Cabeçalho (Header)</h4>
-          <p>
-            Logo branco sobre fundo verde petróleo, com links de navegação à
-            direita (Como Funciona, Sobre Nós, Cadastrar).
-          </p>
-        </div>
-        <div class="card">
-          <h4>Seção Hero – Página Inicial</h4>
-          <p>
-            Card central verde petróleo com texto branco e campo de busca em
-            destaque, seguindo o print da home do ConectaServ.
-          </p>
-        </div>
-        <div class="card">
-          <h4>Cards de Profissionais</h4>
-          <p>
-            Cards brancos com foto circular, nome em verde, título em cinza,
-            estrelas de avaliação e botão verde “Ver Perfil Completo”.
-          </p>
-        </div>
-        <div class="card">
-          <h4>Formulários</h4>
-          <p>
-            Campos com fundo branco, borda cinza clara e botão verde petróleo
-            para enviar mensagens ou criar perfil.
-          </p>
-        </div>
-      </div>
+      <ul>
+        <li>Cabeçalho com logo branco em fundo verde petróleo;</li>
+        <li>Cards brancos com sombra leve e destaques em verde;</li>
+        <li>Botões com bordas arredondadas e destaque em verde;</li>
+        <li>Campos de formulário limpos e claros.</li>
+      </ul>
     </section>
 
     <!-- 11. PROIBIÇÕES -->
     <section id="proibicoes">
       <h2>11. Proibições de Uso</h2>
-      <p>Para preservar a identidade da marca, é <span class="warning">proibido</span>:</p>
+
       <ul>
-        <li>Esticar ou deformar o logo em qualquer direção;</li>
-        <li>Alterar as cores oficiais do logotipo para outras não previstas;</li>
-        <li>Aplicar o logo sobre fundos que prejudiquem a leitura;</li>
-        <li>Adicionar sombras exageradas, contornos ou efeitos 3D;</li>
-        <li>Usar tipografias diferentes das definidas para títulos e botões;</li>
-        <li>Rotacionar o logo ou mudar a proporção entre ícone e texto.</li>
+        <li>Alterar cores do logo;</li>
+        <li>Distorcer ou esticar o logotipo;</li>
+        <li>Aplicar efeitos exagerados (sombra, brilho, 3D);</li>
+        <li>Rotacionar o ícone;</li>
+        <li>Usar tipografias fora da família escolhida.</li>
       </ul>
     </section>
 
-    <!-- 12. PRINTS / PROTÓTIPO -->
+    <!-- 12. PRINTS DO SITE -->
     <section id="prints">
       <h2>12. Protótipo / Prints do Site Real</h2>
-      <p>
-        Abaixo, os prints do site ConectaServ comprovando a aplicação prática da
-        identidade visual. Substitua os caminhos das imagens pelas capturas reais.
-      </p>
 
       <div class="prints-grid">
         <figure>
-          <img src="imagens/home.jpeg" alt="Página Inicial – ConectaServ" />
+          <img src="imagens/home.jpeg" alt="Página Inicial">
           <figcaption>Página Inicial (Desktop) – Busca por cidade.</figcaption>
         </figure>
+
         <figure>
-          <img src="imagens/sobre.jpeg" alt="Página Sobre o ConectaServ" />
-          <figcaption>Seção “Sobre o ConectaServ” com explicação do projeto.</figcaption>
+          <img src="imagens/sobre.jpeg" alt="Página Sobre">
+          <figcaption>Seção “Sobre o ConectaServ”.</figcaption>
         </figure>
+
         <figure>
-          <img src="imagens/cadastro_prof.jpeg" alt="Cadastro de Profissional" />
-          <figcaption>Tela de cadastro de profissionais com formulário completo.</figcaption>
+          <img src="imagens/cadastro_prof.jpeg" alt="Cadastro">
+          <figcaption>Tela de cadastro de profissionais.</figcaption>
         </figure>
+
         <figure>
-          <img src="imagens/lista.jpeg" alt="Lista de Profissionais" />
-          <figcaption>Lista de profissionais para “Franca, SP”.</figcaption>
+          <img src="imagens/lista.jpeg" alt="Lista de Profissionais">
+          <figcaption>Listagem de profissionais.</figcaption>
         </figure>
+
         <figure>
-          <img src="imagens/perfil_carlos.jpeg" alt="Perfil do profissional Carlos Silva" />
-          <figcaption>Perfil completo do profissional Carlos Silva.</figcaption>
+          <img src="imagens/perfil_carlos.jpeg" alt="Perfil Carlos">
+          <figcaption>Perfil completo do profissional Carlos.</figcaption>
         </figure>
+
         <figure>
-          <img src="imagens/perfil_maria.jpeg" alt="Perfil da profissional Maria da Graça" />
-          <figcaption>Perfil completo da profissional Maria da Graça.</figcaption>
+          <img src="imagens/perfil_maria.jpeg" alt="Perfil Maria">
+          <figcaption>Perfil completo da profissional Maria.</figcaption>
         </figure>
+
         <figure>
-          <img src="imagens/como_funciona.jpeg" alt="Página Como Funciona" />
-          <figcaption>Página “Como Funciona” explicando clientes e profissionais.</figcaption>
+          <img src="imagens/como_funciona.jpeg" alt="Como Funciona">
+          <figcaption>Seção “Como Funciona”.</figcaption>
         </figure>
       </div>
     </section>
@@ -692,31 +358,15 @@
     <!-- 13. CRÉDITOS -->
     <section id="creditos">
       <h2>13. Créditos do Grupo</h2>
-      <p>
-        <strong>1. Fernando Apolinário Faria</strong><br />
-        Função: Design da Interface / Front-end
-      </p>
-      <p>
-        <strong>2. Gabriel Ribeiro da Silva</strong><br />
-        Função: Apoio em Front-end / Conteúdo
-      </p>
-      <p>
-        <strong>3. Marcelo de Almeida Neroni</strong><br />
-        Função: Estrutura de Dados / Integrações
-      </p>
-      <p>
-        <strong>4. Matheus Garcia Leite</strong><br />
-        Função: Documentação e Testes
-      </p>
-      <p>
-        <strong>5. Thalles Novais</strong><br />
-        Função: UX, fluxo das telas e revisão
-      </p>
-    </section>
-  </main>
 
-  <footer>
-    Manual Oficial de Identidade Visual – ConectaServ · DSM – Fatec Franca · 2025
-  </footer>
+      <p><strong>1. Fernando Apolinário Faria</strong> — Interface / Front-end</p>
+      <p><strong>2. Gabriel Ribeiro da Silva</strong> — Conteúdo / Auxílio Front-end</p>
+      <p><strong>3. Marcelo de Almeida Neroni</strong> — Banco de Dados / Integrações</p>
+      <p><strong>4. Matheus Garcia Leite</strong> — Documentação e Testes</p>
+      <p><strong>5. Thalles Novais</strong> — UX e Refinamento</p>
+    </section>
+
+  </main>
 </body>
 </html>
+
