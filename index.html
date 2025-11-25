@@ -1,454 +1,704 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Manual Visual – ConectaServ</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
+    :root {
+      --primary: #e32425;
+      --primary-dark: #c51f20;
+      --bg: #f5f5f5;
+      --bg-card: #ffffff;
+      --text: #111111;
+      --text-muted: #555555;
+      --border: #e0e0e0;
+      --sidebar-width: 260px;
+    }
+
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-      font-family: "Poppins", sans-serif;
     }
 
     body {
-      background: #f3f7f4;
-      display: flex;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      scroll-behavior: smooth;
     }
 
-    /* MENU LATERAL */
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* SIDEBAR */
     .sidebar {
-      width: 260px;
-      height: 100vh;
-      position: fixed;
+      width: var(--sidebar-width);
+      background: #0b0b0b;
+      color: #f8f8f8;
+      padding: 24px 20px;
+      position: sticky;
       top: 0;
-      left: 0;
-      padding: 24px;
-      background: white;
-      border-right: 1px solid #e4e4e4;
+      align-self: flex-start;
+      height: 100vh;
       overflow-y: auto;
     }
 
-    .sidebar h2 {
+    .logo {
+      font-weight: 700;
       font-size: 20px;
-      color: #006d75;
-      margin-bottom: 16px;
-    }
-
-    .sidebar h3 {
-      font-size: 12px;
-      color: #999;
-      margin-bottom: 8px;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
+      margin-bottom: 8px;
     }
 
-    .sidebar a {
+    .logo span {
+      color: var(--primary);
+    }
+
+    .sidebar small {
       display: block;
-      padding: 8px 12px;
-      margin-bottom: 4px;
-      border-radius: 6px;
-      color: #333;
-      text-decoration: none;
+      font-size: 12px;
+      color: #a0a0a0;
+      margin-bottom: 24px;
+    }
+
+    .sidebar nav h4 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #b4b4b4;
+      margin-bottom: 10px;
+    }
+
+    .nav-list {
+      list-style: none;
       font-size: 14px;
     }
 
-    .sidebar a:hover,
-    .sidebar a.active {
-      background: #d7f5f3;
-      color: #006d75;
-      font-weight: 600;
+    .nav-list li {
+      margin-bottom: 6px;
     }
 
-    /* CONTEÚDO */
+    .nav-list a {
+      text-decoration: none;
+      color: #e0e0e0;
+      padding: 6px 8px;
+      border-radius: 6px;
+      display: block;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .nav-list a:hover {
+      background: #181818;
+      color: #ffffff;
+    }
+
+    .nav-list .group-title {
+      margin-top: 14px;
+      margin-bottom: 4px;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #777777;
+    }
+
+    /* MAIN CONTENT */
     .content {
-      margin-left: 260px;
-      padding: 40px 60px;
-      width: calc(100% - 260px);
+      flex: 1;
+      padding: 32px 32px 48px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      margin-bottom: 24px;
+    }
+
+    .page-header h1 {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #ffecec;
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--primary);
+    }
+
+    .page-header p {
+      color: var(--text-muted);
+      max-width: 560px;
+      font-size: 14px;
     }
 
     section {
-      background: white;
-      margin-bottom: 30px;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+      margin-bottom: 32px;
     }
 
     section h2 {
-      color: #006d75;
-      font-size: 26px;
-      margin-bottom: 12px;
+      font-size: 22px;
+      margin-bottom: 8px;
     }
 
-    section p, li {
-      font-size: 15px;
-      color: #444;
-      margin-bottom: 10px;
-      line-height: 1.6;
+    section h3 {
+      font-size: 18px;
+      margin-top: 16px;
+      margin-bottom: 6px;
+    }
+
+    section p {
+      margin-bottom: 8px;
+      font-size: 14px;
     }
 
     ul {
-      padding-left: 20px;
-    }
-
-    /* GRID DAS IMAGENS */
-    .prints-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-    }
-
-    figure {
-      background: #fff;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid #eee;
-    }
-
-    figure img {
-      width: 100%;
-      display: block;
-    }
-
-    figure figcaption {
-      padding: 10px;
+      padding-left: 18px;
+      margin-bottom: 8px;
       font-size: 14px;
-      color: #666;
     }
 
-    .palette {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 20px;
-  margin-top: 16px;
-}
+    code {
+      background: #eeeeee;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
 
-.color-card {
-  background: white;
-  border: 1px solid #e4e4e4;
-  border-radius: 10px;
-  overflow: hidden;
-  padding: 12px;
-}
+    pre {
+      background: #111111;
+      color: #f5f5f5;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      overflow-x: auto;
+      margin: 8px 0;
+    }
 
-.color-swatch {
-  height: 60px;
-  width: 100%;
-  border-radius: 6px;
-  margin-bottom: 10px;
-}
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 14px;
+      font-size: 13px;
+    }
 
-.color-info {
-  font-size: 14px;
-  color: #444;
-}
+    th,
+    td {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+    }
 
+    th {
+      text-align: left;
+      background: #fafafa;
+      font-weight: 600;
+    }
 
+    .card {
+      background: var(--bg-card);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 6px 0 8px;
+    }
+
+    .pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-size: 12px;
+      background: #ffffff;
+    }
+
+    .section-caption {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .changelog {
+      font-size: 13px;
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .changelog li + li {
+      margin-top: 4px;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+      }
+
+      .content {
+        padding: 20px 16px 32px;
+      }
+    }
   </style>
 </head>
-
 <body>
-
-  <!-- MENU LATERAL -->
-  <aside class="sidebar">
-    <h2>MANUAL VISUAL</h2>
-
-    <h3>Estrutura</h3>
-    <a href="#capa">Capa</a>
-    <a href="#intro">1. Introdução</a>
-    <a href="#marca">2. Sobre a Marca</a>
-    <a href="#motivacoes">3. Motivações</a>
-    <a href="#slogan">4. Slogan</a>
-    <a href="#processo">5. Processo Criativo</a>
-    <a href="#logo">6. Logotipo Final</a>
-    <a href="#variacoes">7. Variações</a>
-    <a href="#cores">8. Paleta de Cores</a>
-    <a href="#tipografia">9. Tipografia</a>
-    <a href="#aplicacoes">10. Aplicações</a>
-    <a href="#proibicoes">11. Proibições</a>
-    <a href="#prints">12. Prints</a>
-    <a href="#creditos">13. Créditos do Grupo</a>
-  </aside>
-
-  <!-- CONTEÚDO -->
-  <main class="content">
-        <!-- CAPA -->
-    <section id="capa">
-      <h2>Manual Oficial – Identidade Visual do ConectaServ</h2>
-      <p>"ConectaServ: facilidade pra contratar, visibilidade pra quem sabe fazer."</p>
-
-      <p><strong>Site:</strong> ConectaServ – Marketplace de Prestadores</p>
-      <p><strong>Disciplina:</strong> Design Digital – DSM</p>
-      <p><strong>Instituição:</strong> Fatec Franca – PI 1º Semestre</p>
-      <p><strong>Ano:</strong> 2025</p>
-    </section>
-
-    <!-- 1. INTRODUÇÃO -->
-    <section id="intro">
-      <h2>1. Introdução</h2>
-      <p>
-        Este manual apresenta a identidade visual oficial do site
-        <strong>ConectaServ</strong>, uma plataforma Web focada em conectar
-        clientes a prestadores de serviço da sua região.
-      </p>
-      <p>
-        Aqui estão registradas as diretrizes de uso do logo, paleta de cores,
-        tipografia e componentes de interface, garantindo consistência visual em
-        todas as telas do projeto.
-      </p>
-    </section>
-
-    <!-- 2. SOBRE A MARCA -->
-    <section id="marca">
-      <h2>2. Sobre a Marca</h2>
-
-      <p>
-        O <strong>ConectaServ</strong> é um marketplace de serviços locais que
-        facilita a conexão entre clientes e prestadores como jardineiros,
-        pintores, diaristas, eletricistas, pedreiros e outros profissionais.
-      </p>
-
-      <h3>O que o site oferece?</h3>
-      <ul>
-        <li>Busca por profissionais filtrada pela cidade;</li>
-        <li>Perfis completos com foto, preço e avaliação;</li>
-        <li>Sistema de contato direto;</li>
-        <li>Área para prestadores criarem um perfil profissional.</li>
-      </ul>
-
-      <h3>Público-alvo</h3>
-      <p>
-        Clientes que buscam confiança e agilidade para contratar serviços,
-        e profissionais autônomos que precisam de visibilidade.
-      </p>
-    </section>
-
-    <!-- 3. MOTIVAÇÕES -->
-    <section id="motivacoes">
-      <h2>3. Motivações e Propósito</h2>
-
-      <h3>Benefício para o usuário</h3>
-      <p>
-        Encontrar rapidamente um profissional confiável, com avaliações reais e
-        informações organizadas.
-      </p>
-
-      <h3>Dor atendida</h3>
-      <p>
-        Centralizar informações para evitar depender apenas de "indicação" sem
-        referências confiáveis.
-      </p>
-
-      <h3>Diferencial</h3>
-      <p>
-        Interface simples, objetiva e pensada para decisão rápida.
-      </p>
-    </section>
-
-    <!-- 4. SLOGAN -->
-    <section id="slogan">
-      <h2>4. Slogan</h2>
-      <p><strong>"ConectaServ: facilidade pra contratar, visibilidade pra quem sabe fazer."</strong></p>
-    </section>
-
-    <!-- 5. PROCESSO CRIATIVO -->
-    <section id="processo">
-      <h2>5. Processo Criativo</h2>
-      <p>
-        A identidade visual foi construída com base em três pilares:
-        <strong>Conexão, Confiança e Profissionalismo</strong>.
-      </p>
-
-      <h3>Explorações e testes</h3>
-      <p>
-        O grupo testou formas circulares, ícones de conexão e variações de
-        tipografia até chegar ao visual atual.
-      </p>
-    </section>
-
-    <!-- 6. LOGO FINAL -->
-    <section id="logo">
-      <h2>6. Logotipo Final</h2>
-      <p>
-        O logotipo usa ícone circular representando conexão entre cliente e
-        profissional, acompanhado do nome da plataforma.
-      </p>
-
-      <p>
-        <em>Insira aqui o logo oficial se desejar.</em>
-      </p>
-    </section>
-
-    <!-- 7. VARIAÇÕES -->
-    <section id="variacoes">
-      <h2>7. Variações do Logotipo</h2>
-
-      <ul>
-        <li>Logo colorido (versão principal);</li>
-        <li>Logo monocromático para fundos complexos;</li>
-        <li>Versão negativa (branco sobre verde petróleo);</li>
-        <li>Ícone reduzido para favicon ou thumbnail.</li>
-      </ul>
-    </section>
-
-    <!-- 8. CORES -->
-<section id="cores">
-  <h2>8. Paleta de Cores Oficial</h2>
-  <p>
-    A paleta foi definida para comunicar confiança, clareza e simplicidade visual.
-  </p>
-
-  <h3>Cores Primárias</h3>
-
-  <div class="palette">
-
-    <div class="color-card">
-      <div class="color-swatch" style="background: #006D75;"></div>
-      <div class="color-info">
-        <strong>Verde Petróleo</strong>
-        Uso em cabeçalho, botões principais e títulos de destaque.<br>
-        HEX: <code>#006D75</code>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="logo">
+        <span>Conecta</span>Serv
       </div>
-    </div>
+      <small>Manual visual & diretrizes de produto</small>
 
-    <div class="color-card">
-      <div class="color-swatch" style="background: #2CA6A4;"></div>
-      <div class="color-info">
-        <strong>Verde Claro</strong>
-        Usado em destaques e ícones.<br>
-        HEX: <code>#2CA6A4</code>
-      </div>
-    </div>
+      <nav>
+        <h4>Seções</h4>
+        <ul class="nav-list">
+          <li><a href="#introducao">1. Introdução</a></li>
 
+          <li class="group-title">Base visual</li>
+          <li><a href="#identidade">2. Identidade Visual</a></li>
+          <li><a href="#tipografia">3. Tipografia</a></li>
+          <li><a href="#espacamentos">4. Espaçamentos & Grid</a></li>
+
+          <li class="group-title">Produto</li>
+          <li><a href="#componentes">5. Componentes do App</a></li>
+          <li><a href="#prints">6. Prints das Telas</a></li>
+          <li><a href="#logo">7. Logo & Uso</a></li>
+
+          <li class="group-title">Marca</li>
+          <li><a href="#tom-voz">8. Tom de Voz</a></li>
+          <li><a href="#ia">9. IA & Recomendações</a></li>
+          <li><a href="#interacao">10. Padrões de Interação</a></li>
+
+          <li class="group-title">Arquivos</li>
+          <li><a href="#arquivos">11. Arquivos da Marca</a></li>
+          <li><a href="#navegacao">12. Navegação do Manual</a></li>
+          <li><a href="#versoes">13. Versões</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <header class="page-header">
+        <div class="badge">
+          <span class="badge-dot"></span>
+          Manual visual oficial
+        </div>
+        <h1>Manual Visual – ConectaServ</h1>
+        <p>
+          Guia de identidade, UI e experiência do ConectaServ. Este documento
+          alinha design, front-end e comunicação em uma linguagem única.
+        </p>
+      </header>
+
+      <!-- 1. INTRODUÇÃO -->
+      <section id="introducao">
+        <h2>1. Introdução</h2>
+        <p>
+          O ConectaServ é um marketplace inteligente que conecta prestadores de
+          serviço a clientes, com foco em praticidade, confiança e segurança.
+        </p>
+        <p>
+          Este manual define padrões visuais, componentes, tom de voz e
+          comportamentos de interface para que o produto cresça com consistência
+          – tanto no app quanto em materiais de marketing.
+        </p>
+      </section>
+
+      <!-- 2. IDENTIDADE VISUAL -->
+      <section id="identidade">
+        <h2>2. Identidade Visual</h2>
+
+        <h3>2.1 Paleta Principal</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Função</th>
+              <th>Cor</th>
+              <th>HEX</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Primária</td>
+              <td>Vermelho ConectaServ</td>
+              <td><code>#E32425</code></td>
+            </tr>
+            <tr>
+              <td>Secundária</td>
+              <td>Preto</td>
+              <td><code>#000000</code></td>
+            </tr>
+            <tr>
+              <td>Neutro Principal</td>
+              <td>Branco</td>
+              <td><code>#FFFFFF</code></td>
+            </tr>
+            <tr>
+              <td>Cinza Base</td>
+              <td>Cinza 200</td>
+              <td><code>#E5E5E5</code></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>2.2 Paleta Estendida</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Uso</th>
+              <th>Cor</th>
+              <th>HEX</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Sucesso</td>
+              <td>Verde</td>
+              <td><code>#2ECC71</code></td>
+            </tr>
+            <tr>
+              <td>Alerta</td>
+              <td>Amarelo</td>
+              <td><code>#F1C40F</code></td>
+            </tr>
+            <tr>
+              <td>Erro</td>
+              <td>Vermelho Escuro</td>
+              <td><code>#C0392B</code></td>
+            </tr>
+            <tr>
+              <td>Informação</td>
+              <td>Azul</td>
+              <td><code>#3498DB</code></td>
+            </tr>
+            <tr>
+              <td>Neutros</td>
+              <td>Cinza 50 → 900</td>
+              <td><code>#FAFAFA</code> até <code>#1A1A1A</code></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="section-caption">
+          Cores de estado (sucesso/erro/alerta) devem ser usadas com moderação
+          e sempre com ícones/textos de apoio.
+        </p>
+      </section>
+
+      <!-- 3. TIPOGRAFIA -->
+      <section id="tipografia">
+        <h2>3. Tipografia</h2>
+        <p>Fonte base do sistema: <strong>Poppins</strong> (Google Fonts).</p>
+
+        <h3>3.1 Hierarquia</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Estilo</th>
+              <th>Peso</th>
+              <th>Tamanho</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>H1</td>
+              <td>700</td>
+              <td>32px</td>
+            </tr>
+            <tr>
+              <td>H2</td>
+              <td>600</td>
+              <td>24px</td>
+            </tr>
+            <tr>
+              <td>H3</td>
+              <td>500</td>
+              <td>20px</td>
+            </tr>
+            <tr>
+              <td>Parágrafo</td>
+              <td>400</td>
+              <td>16px</td>
+            </tr>
+            <tr>
+              <td>Legenda</td>
+              <td>400</td>
+              <td>12–14px</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="card">
+          <strong>Boas práticas:</strong>
+          <ul>
+            <li>Evitar mais de 2 fontes diferentes na mesma tela.</li>
+            <li>Usar H1/H2 com parcimônia (máx. 1 H1 por tela).</li>
+            <li>Textos longos sempre em 16px, com bom contraste.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 4. ESPAÇAMENTOS -->
+      <section id="espacamentos">
+        <h2>4. Espaçamentos &amp; Grid</h2>
+        <p>O sistema de espaçamento é baseado em um módulo de 8px:</p>
+        <pre><code>4 / 8 / 12 / 16 / 24 / 32 / 48 / 64</code></pre>
+
+        <ul>
+          <li>Espaçamento mínimo entre blocos: <strong>24px</strong>.</li>
+          <li>Padding interno de cards: <strong>16px</strong>.</li>
+          <li>Distância entre campos de formulário: <strong>12px</strong>.</li>
+          <li>Grid recomendada: <strong>12 colunas</strong> em layouts web.</li>
+        </ul>
+      </section>
+
+      <!-- 5. COMPONENTES -->
+      <section id="componentes">
+        <h2>5. Componentes do App</h2>
+
+        <h3>5.1 Botões</h3>
+        <div class="card">
+          <strong>Botão Primário</strong>
+          <ul>
+            <li>Fundo: vermelho ConectaServ.</li>
+            <li>Texto: branco.</li>
+            <li>Altura: 48px / raio: 12px.</li>
+          </ul>
+
+          <strong>Botão Secundário</strong>
+          <ul>
+            <li>Fundo: branco.</li>
+            <li>Borda: <code>#E32425</code>.</li>
+            <li>Texto: vermelho.</li>
+          </ul>
+
+          <strong>Botão Desativado</strong>
+          <ul>
+            <li>Fundo: cinza 200.</li>
+            <li>Texto: cinza 500.</li>
+          </ul>
+        </div>
+
+        <h3>5.2 Inputs / Formulários</h3>
+        <ul>
+          <li>Altura: 48px.</li>
+          <li>Borda: 1px cinza 300.</li>
+          <li>Raio: 10px.</li>
+          <li>Placeholder: cinza 500.</li>
+          <li>Foco: borda em vermelho primário.</li>
+        </ul>
+
+        <h3>5.3 Cards</h3>
+        <div class="card">
+          <strong>Card de Serviço</strong>
+          <ul>
+            <li>Fundo branco, sombra leve, raio 16px.</li>
+            <li>Miniatura do prestador ou ícone da categoria.</li>
+            <li>Nome, categoria, avaliação e preço estimado.</li>
+          </ul>
+
+          <strong>Card do Prestador</strong>
+          <ul>
+            <li>Foto maior em destaque.</li>
+            <li>Nome e nota visíveis.</li>
+            <li>Distância aproximada + botão “Chamar”.</li>
+          </ul>
+        </div>
+
+        <h3>5.4 Componentes Extras</h3>
+        <div class="pill-list">
+          <span class="pill">Chips / Tags</span>
+          <span class="pill">Modais</span>
+          <span class="pill">Topo da tela</span>
+          <span class="pill">Barra inferior</span>
+        </div>
+        <p class="section-caption">
+          A barra inferior deve manter 3–5 ícones no máximo, com rótulos curtos.
+        </p>
+      </section>
+
+      <!-- 6. PRINTS -->
+      <section id="prints">
+        <h2>6. Prints das Telas</h2>
+        <p>
+          Os prints devem ser exibidos em mockups de celular modernos, com borda
+          fina e sombra suave.
+        </p>
+
+        <h3>6.1 Fluxo – Onboarding</h3>
+        <ul>
+          <li>Tela de boas-vindas.</li>
+          <li>Criação de conta / login.</li>
+          <li>Solicitação de permissões (localização, notificações).</li>
+        </ul>
+
+        <h3>6.2 Fluxo – Cliente</h3>
+        <ul>
+          <li>Home com categorias de serviço.</li>
+          <li>Lista de prestadores / serviços.</li>
+          <li>Perfil do prestador.</li>
+          <li>Chat e acompanhamento do serviço.</li>
+          <li>Pagamento seguro / confirmação.</li>
+        </ul>
+
+        <h3>6.3 Fluxo – Prestador</h3>
+        <ul>
+          <li>Dashboard com visão de agenda e ganhos.</li>
+          <li>Lista de chamados / orçamentos.</li>
+          <li>Perfil público do prestador.</li>
+        </ul>
+
+        <p class="section-caption">
+          Organizar os prints no repositório por pasta: <code>/prints/onboarding</code>,
+          <code>/prints/cliente</code> e <code>/prints/prestador</code>.
+        </p>
+      </section>
+
+      <!-- 7. LOGO -->
+      <section id="logo">
+        <h2>7. Logo &amp; Regras de Uso</h2>
+
+        <h3>7.1 Logotipo Oficial</h3>
+        <ul>
+          <li>Versão principal: vermelho + preto.</li>
+          <li>Versão monocromática: branca ou preta.</li>
+        </ul>
+
+        <h3>7.2 Área de Proteção</h3>
+        <p>
+          A margem mínima ao redor da marca deve ser igual à altura da letra
+          “C” do logotipo.
+        </p>
+
+        <h3>7.3 Proibições</h3>
+        <ul>
+          <li>❌ Não distorcer ou comprimir a logo.</li>
+          <li>❌ Não alterar as cores oficiais.</li>
+          <li>❌ Não usar sombras ou efeitos exagerados.</li>
+          <li>❌ Não aplicar em fundos com ruído visual intenso.</li>
+        </ul>
+      </section>
+
+      <!-- 8. TOM DE VOZ -->
+      <section id="tom-voz">
+        <h2>8. Tom de Voz da Marca</h2>
+        <p>O ConectaServ fala de forma direta, clara e amigável.</p>
+
+        <div class="card">
+          <strong>Princípios de comunicação:</strong>
+          <ul>
+            <li>Fala simples, sem juridiquês ou termos técnicos desnecessários.</li>
+            <li>Sem formalidade excessiva, mas com respeito.</li>
+            <li>Sempre orientado à solução.</li>
+            <li>Reforço constante de segurança e confiança.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 9. IA -->
+      <section id="ia">
+        <h2>9. IA &amp; Recomendações Inteligentes</h2>
+        <p>
+          A camada de IA do ConectaServ apoia a conexão inteligente entre
+          cliente e prestador.
+        </p>
+
+        <ul>
+          <li>Recomendações de prestadores com base em histórico e localização.</li>
+          <li>Avaliação inteligente de reputação e risco.</li>
+          <li>Sugestão de serviços mais demandados na região.</li>
+          <li>Possível apoio à precificação e estimativa de tempo.</li>
+        </ul>
+
+        <p class="section-caption">
+          Mesmo que algumas funcionalidades estejam em roadmap, o manual já
+          registra a visão de produto.
+        </p>
+      </section>
+
+      <!-- 10. INTERAÇÃO -->
+      <section id="interacao">
+        <h2>10. Padrões de Interação</h2>
+        <ul>
+          <li>Feedback rápido após ações importantes (loaders, estados).</li>
+          <li>Uso de skeletons em listas e telas com muitos dados.</li>
+          <li>Alvos de toque com no mínimo 44px de altura.</li>
+          <li>Mensagens de confirmação claras para ações sensíveis (cancelar serviço, excluir dados etc.).</li>
+        </ul>
+      </section>
+
+      <!-- 11. ARQUIVOS -->
+      <section id="arquivos">
+        <h2>11. Arquivos da Marca</h2>
+        <p>Sugestão de organização dentro do repositório:</p>
+        <pre><code>/assets
+  /logo
+    logotipo-principal.png
+    logotipo-branco.png
+    logotipo-preto.png
+  /paleta
+    cores-principais.png
+  /mockups
+    onboarding.png
+    servicos.png
+    prestador.png
+  /prints
+    /onboarding
+    /cliente
+    /prestador</code></pre>
+      </section>
+
+      <!-- 12. NAVEGAÇÃO -->
+      <section id="navegacao">
+        <h2>12. Navegação do Manual</h2>
+        <p>
+          Este manual foi pensado como uma documentação contínua. O menu lateral
+          deve ser mantido e atualizado sempre que novas seções forem criadas.
+        </p>
+        <p>
+          Em telas menores, o menu pode se transformar em um menu recolhível ou
+          ancorado no topo.
+        </p>
+      </section>
+
+      <!-- 13. VERSÕES -->
+      <section id="versoes">
+        <h2>13. Versões</h2>
+        <ul class="changelog">
+          <li><strong>v1.0</strong> – Estrutura básica do manual visual.</li>
+          <li><strong>v1.1</strong> – Tipografia e paleta estendida documentadas.</li>
+          <li><strong>v1.2</strong> – Componentes de app e fluxos de telas.</li>
+          <li><strong>v1.3</strong> – IA, interação e organização de arquivos.</li>
+        </ul>
+      </section>
+    </main>
   </div>
-
-  <h3>Cores Neutras</h3>
-
-  <div class="palette">
-
-    <div class="color-card">
-      <div class="color-swatch" style="background: #F5F5F5;"></div>
-      <div class="color-info">
-        <strong>Cinza Muito Claro</strong>
-        Fundo geral do site.<br>
-        HEX: <code>#F5F5F5</code>
-      </div>
-    </div>
-
-    <div class="color-card">
-      <div class="color-swatch" style="background: #FFFFFF;"></div>
-      <div class="color-info">
-        <strong>Branco</strong>
-        Cards e áreas internas.<br>
-        HEX: <code>#FFFFFF</code>
-      </div>
-    </div>
-
-    <div class="color-card">
-      <div class="color-swatch" style="background: #2D2D2D;"></div>
-      <div class="color-info">
-        <strong>Cinza Escuro</strong>
-        Textos principais.<br>
-        HEX: <code>#2D2D2D</code>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-
-    <!-- 9. TIPOGRAFIA -->
-    <section id="tipografia">
-      <h2>9. Tipografia</h2>
-      <p>
-        A tipografia oficial usa a família <strong>Poppins</strong>,
-        moderna e legível, nas variações Regular, Medium e SemiBold.
-      </p>
-    </section>
-
-    <!-- 10. APLICAÇÕES -->
-    <section id="aplicacoes">
-      <h2>10. Aplicações da Marca</h2>
-
-      <ul>
-        <li>Cabeçalho com logo branco em fundo verde petróleo;</li>
-        <li>Cards brancos com sombra leve e destaques em verde;</li>
-        <li>Botões com bordas arredondadas e destaque em verde;</li>
-        <li>Campos de formulário limpos e claros.</li>
-      </ul>
-    </section>
-
-    <!-- 11. PROIBIÇÕES -->
-    <section id="proibicoes">
-      <h2>11. Proibições de Uso</h2>
-
-      <ul>
-        <li>Alterar cores do logo;</li>
-        <li>Distorcer ou esticar o logotipo;</li>
-        <li>Aplicar efeitos exagerados (sombra, brilho, 3D);</li>
-        <li>Rotacionar o ícone;</li>
-        <li>Usar tipografias fora da família escolhida.</li>
-      </ul>
-    </section>
-
-    <!-- 12. PRINTS DO SITE -->
-    <section id="prints">
-      <h2>12. Protótipo / Prints do Site Real</h2>
-
-      <div class="prints-grid">
-        <figure>
-          <img src="imagens/home.jpeg" alt="Página Inicial">
-          <figcaption>Página Inicial (Desktop) – Busca por cidade.</figcaption>
-        </figure>
-
-        <figure>
-          <img src="imagens/sobre.jpeg" alt="Página Sobre">
-          <figcaption>Seção “Sobre o ConectaServ”.</figcaption>
-        </figure>
-
-        <figure>
-          <img src="imagens/cadastro_prof.jpeg" alt="Cadastro">
-          <figcaption>Tela de cadastro de profissionais.</figcaption>
-        </figure>
-
-        <figure>
-          <img src="imagens/lista.jpeg" alt="Lista de Profissionais">
-          <figcaption>Listagem de profissionais.</figcaption>
-        </figure>
-
-        <figure>
-          <img src="imagens/perfil_carlos.jpeg" alt="Perfil Carlos">
-          <figcaption>Perfil completo do profissional Carlos.</figcaption>
-        </figure>
-
-        <figure>
-          <img src="imagens/perfil_maria.jpeg" alt="Perfil Maria">
-          <figcaption>Perfil completo da profissional Maria.</figcaption>
-        </figure>
-
-        <figure>
-          <img src="imagens/como_funciona.jpeg" alt="Como Funciona">
-          <figcaption>Seção “Como Funciona”.</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- 13. CRÉDITOS -->
-    <section id="creditos">
-      <h2>13. Créditos do Grupo</h2>
-
-      <p><strong>1. Fernando Apolinário Faria</strong> — Interface / Front-end</p>
-      <p><strong>2. Gabriel Ribeiro da Silva</strong> — Conteúdo / Auxílio Front-end</p>
-      <p><strong>3. Marcelo de Almeida Neroni</strong> — Banco de Dados / Integrações</p>
-      <p><strong>4. Matheus Garcia Leite</strong> — Documentação e Testes</p>
-      <p><strong>5. Thalles Novais</strong> — UX e Refinamento</p>
-    </section>
-
-  </main>
 </body>
 </html>
-
